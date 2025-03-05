@@ -39,11 +39,13 @@ enable_obstacles = True # Change based on whether you'd like to enable obstacles
 obstacles = [
     Obstacle(4, 5),
     Obstacle(20, 20),
+    Obstacle(6,6),
 ]
 
 path = [
     LineSegment(1, 1, 5, 1),
     ArcSegment(6, 4, 3, -pi/2, 0),
+    LineSegment(9, 4, 14, 14),
 ]
 
 # %%
