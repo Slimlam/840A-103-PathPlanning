@@ -24,9 +24,22 @@ DIRECTIONS = [(0, 1), (0, -1), (1, 0), (-1, 0)]
 
 OBSTACLES = [(4, 5), (20, 20)]  # Given obstacles (midpoints) 
 
-OBSTACLE_SIZE = 2  # Since robot has a 2-unit diameter, expand obstacles 
+OBSTACLE_SIZE = 4  # Since robot has a 2-unit diameter, expand obstacles 
 
- 
+obstacle_cells = set() 
+
+for ox, oy in OBSTACLES: 
+
+    for dx in range(-OBSTACLE_SIZE // 2, OBSTACLE_SIZE // 2): 
+
+        for dy in range(-OBSTACLE_SIZE // 2, OBSTACLE_SIZE // 2): 
+
+            nx, ny = ox + dx, oy + dy 
+
+            if 0 <= nx < GRID_WIDTH and 0 <= ny < GRID_HEIGHT: 
+
+                obstacle_cells.add((nx, ny))
+
 
 # Define start point, checkpoints, and goal 
 
@@ -54,9 +67,9 @@ def expand_obstacles(obstacles, grid_width, grid_height):
 
     for ox, oy in obstacles: 
 
-        for dx in range(-OBSTACLE_SIZE // 2, OBSTACLE_SIZE // 2 + 1): 
+        for dx in range(-OBSTACLE_SIZE // 2 - 1, OBSTACLE_SIZE // 2 + 1): 
 
-            for dy in range(-OBSTACLE_SIZE // 2, OBSTACLE_SIZE // 2 + 1): 
+            for dy in range(-OBSTACLE_SIZE // 2 - 1, OBSTACLE_SIZE // 2 + 1): 
 
                 nx, ny = ox + dx, oy + dy 
 
@@ -200,7 +213,7 @@ ax.set_ylim(0, GRID_HEIGHT)
 
 # Draw obstacles 
 
-for ox, oy in BLOCKED_CELLS: 
+for ox, oy in obstacle_cells: 
 
     ax.add_patch(plt.Rectangle((ox, oy), 1, 1, color="red")) 
 
